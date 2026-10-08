@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<title>人民币反教科书</title>
+<style>
+  html, body { margin: 0; background: #f2eadb; overflow: hidden; }
+  canvas { display: block; width: 1080px; height: 1440px; }
+</style>
+</head>
+<body>
+<canvas id="c" width="1080" height="1440"></canvas>
+<script type="module">
+  import { init, renderFrame } from './main.js';
+  window.__ready = init().then((info) => { window.__info = info; return info; });
+  window.__frame = (f, opts) => renderFrame(f, opts || {});
+  // interactive preview: ?t=12.3 renders that moment; ?play plays in real time (approximate)
+  const q = new URLSearchParams(location.search);
+  window.__ready.then(({ frames }) => {
+    if (q.has('t')) renderFrame(Math.round(parseFloat(q.get('t')) * 30));
+    if (q.has('play')) {
+      const t0 = performance.now();
+      const tick = () => { const f = Math.floor((performance.now() - t0) / 1000 * 30); if (f < frames) { renderFrame(f, { noBlur: true }); requestAnimationFrame(tick); } };
+      tick();
+    }
+  });
+</script>
+</body>
+</html>

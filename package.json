@@ -1,0 +1,14 @@
+{
+  "name": "rmb-anti-textbook-sketchbook",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "人民币反教科书 — hand-drawn motion piece rendered frame-by-frame from HTML canvas",
+  "scripts": {
+    "render": "node render.mjs",
+    "preview": "node tools/preview.mjs"
+  },
+  "dependencies": {
+    "puppeteer-core": "24.10.0"
+  }
+}
